@@ -11,6 +11,10 @@ export const validatePrivateApiKey = (
   if (headerApiKey === serverApiKey) {
     next();
   } else {
-    res.status(401).json({ error: 'Unauthorized' });
+    res
+      .status(401)
+      .json({
+        error: `Unauthorized. server: ${serverApiKey}, client:${headerApiKey}`,
+      });
   }
 };
