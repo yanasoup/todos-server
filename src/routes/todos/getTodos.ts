@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTodos } from 'mockup/todos';
+import { getTodos } from '../../mockup/todos';
 
 const router = express.Router();
 

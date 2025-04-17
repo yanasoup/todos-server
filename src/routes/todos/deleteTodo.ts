@@ -1,8 +1,8 @@
 import express from 'express';
-import { handleZodErrorResponse } from 'utils/error';
+import { handleZodErrorResponse } from '../../utils/error';
 import { z } from 'zod';
-import { TodoSchema } from 'types/todos';
-import { deleteTodo, getTodo } from 'mockup/todos';
+import { TodoSchema } from '../../types/todos';
+import { deleteTodo, getTodo } from '../../mockup/todos';
 
 const router = express.Router();
 
