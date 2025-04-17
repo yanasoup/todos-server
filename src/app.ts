@@ -6,7 +6,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import { todosRouter } from './routes/todos';
 import cluster from 'cluster';
 
-export const app = express();
+const app = express();
 
 if (cluster.isPrimary) {
   cluster.fork();
@@ -97,8 +97,10 @@ if (cluster.isWorker) {
 
   app.use('/todos', todosRouter);
 
-  app.listen(8080, () => {
-    console.log('Server running on port 8080');
-    console.log('Swagger docs available at http://localhost:8080/api-docs');
-  });
+  // app.listen(8080, () => {
+  //   console.log('Server running on port 8080');
+  //   console.log('Swagger docs available at http://localhost:8080/api-docs');
+  // });
 }
+
+export default app;
