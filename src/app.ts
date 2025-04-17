@@ -70,7 +70,7 @@ app.use(
 );
 
 app.use(
-  '/api-docs',
+  '/api-docs-local',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocs, {
     customCssUrl: '/swagger-ui.css',
@@ -84,6 +84,39 @@ app.use(
     },
   })
 );
+
+app.get('/swagger.json', (_req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerDocs);
+});
+
+app.get('/api-docs', (_req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Todo API Docs</title>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+      </head>
+      <body>
+        <div id="swagger-ui"></div>
+        <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+        <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+        <script>
+          window.onload = () => {
+            SwaggerUIBundle({
+              url: '/swagger.json',
+              dom_id: '#swagger-ui',
+              deepLinking: true,
+              presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+              layout: "StandaloneLayout"
+            });
+          };
+        </script>
+      </body>
+    </html>
+  `);
+});
 
 app.use('/todos', todosRouter);
 
